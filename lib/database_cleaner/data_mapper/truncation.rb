@@ -124,18 +124,7 @@ module DataMapper
       # FIXME
       # copied unchanged from activerecord
       def disable_referential_integrity(repository = :default)
-        if supports_disable_referential_integrity? then
-          execute(storage_names(repository).collect do |name|
-            "ALTER TABLE #{quote_name(name)} DISABLE TRIGGER ALL"
-          end.join(";"))
-        end
         yield
-      ensure
-        if supports_disable_referential_integrity? then
-          execute(storage_names(repository).collect do |name|
-            "ALTER TABLE #{quote_name(name)} ENABLE TRIGGER ALL"
-          end.join(";"))
-        end
       end
 
     end
